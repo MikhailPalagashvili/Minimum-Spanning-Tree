@@ -27,6 +27,7 @@ public class MST {
             if (!marked[v]) visit(graph,v); //add unmarked vertex on the tree as well as its incident edges on the pq
             if (!marked[w]) visit(graph, w);
         }
+        for (Edge e : mst) this.weight += e.getWeight();
     }
     //put unmarked vertex on the tree and add any non-tree edges to the pq
     private void visit(EdgeWeightedGraph graph, int v) {
@@ -40,7 +41,21 @@ public class MST {
         return this.mst;
     }
 
-    public double weight() {
-        return this.weight;
+    public double weight() { return this.weight; }
+
+    public static void main(String[] args) {
+        final int v = 8;
+        EdgeWeightedGraph graph = new EdgeWeightedGraph(v);
+        System.out.println(graph.getVertices() + " vertices");
+        System.out.println("********");
+        graph.addEdge(new Edge(0,7,.16)); graph.addEdge(new Edge(0,2,.26));
+        graph.addEdge(new Edge(1,7,.19)); graph.addEdge(new Edge(2,3, .17));
+        graph.addEdge(new Edge(5,7,.28)); graph.addEdge(new Edge(4,5,.35));
+        graph.addEdge(new Edge(6,2,.40));
+        MST mst = new MST(graph);
+        for (Edge e : mst.edges())
+            System.out.println(e.either() + " - " + e.other(e.either()) + " " + e.getWeight());
+        System.out.println(mst.weight());
+
     }
 }
